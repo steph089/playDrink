@@ -2,14 +2,12 @@
 session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 <title>Play Drink - online Party Games</title>
 <?php
-require_once('resources/page_modules.php');
-require_once('resources/fbook/facebook.php');
-require_once('resources/fbook/facebookapi_php5_restlib.php');
+require_once('resources/modules/page.php');
 ?>
 
 <link  rel="stylesheet" type="text/css" href="resources/global.css">
@@ -20,9 +18,9 @@ require_once('resources/fbook/facebookapi_php5_restlib.php');
 <body>
 
 <?php
-page_logoHeader();
-page_sidemenu();
-page_userBox();
+include('resources/includes/logoHeader.html');;
+include('resources/includes/sidemenu.html');
+//page_userBox();
 ?>
 <div class='maincontent'>
 
@@ -30,32 +28,10 @@ page_userBox();
 <h3>The BEST party game site on the web</h3>
 Gone are the days messing around shuffling cards and trying to remember all the rules. playDrink.com knows all the rules and tells you how to play as you play. Simply start, play and get schwasted!!!
 <BR><BR>
-Login to play with your friends!
+<!--Login to play with your friends!-->
 <fb:login-button></fb:login-button>
 <BR><BR>
-<?php
-$facebook = new Facebook('472aa634ab715e016d7b4f0f62cd028c','afb6f3832304b14661cb02344b9f414a'); //start a new instance of the facebook object
-
-$fb_id= $facebook->user;  //get the user’s Facebook ID
-echo $fb_id . "<BR>";
-$restClient = new FacebookRestClient('472aa634ab715e016d7b4f0f62cd028c','afb6f3832304b14661cb02344b9f414a');
-$user_data = $restClient->users_getStandardInfo(array($fb_id), array('first_name'));
-//print_r($user_data);
-echo $user_data[0]['first_name'] . "<br>";
-
-$friends = $facebook->api_client->fql_query("SELECT first_name, pic_square_with_logo FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = '$fb_id')");
-foreach($friends as $friend) {
-	echo "<div class='friend_box'>";
-	echo "<img src='" . $friend['pic_square_with_logo'] . "' alt='Profile Pic' /><br>";
-	echo $friend['first_name'];
-	echo "</div>";
-}
-?>
-<div style="text-align:center;margin-top:45px;width:100%;font-size:1.5em;"><a href='game.php'>start game</a></div>
-
-
+<div style="text-align:center;margin-top:45px;width:100%;font-size:1.5em;"><a href='game-setup.html'>start game</a></div>
 </div>
-<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US" type="text/javascript"></script>
-<script type="text/javascript">  FB.init("472aa634ab715e016d7b4f0f62cd028c", "xd_receiver.htm"); </script>
 </body>
 </html>
