@@ -148,7 +148,7 @@ div.sidemenu li {
 div.maincontent {
   margin-top:20px;
   margin-bottom:20px;
-  padding-left:5px;
+  padding-left:5px;  
   width:80%;
   float: left;
   border-left-style:solid;
@@ -162,6 +162,47 @@ div.main_page_login {
 	background-color:#D2FF9C;
 }
 
+.leftHalf {
+	float:left;
+	width:45%;
+	margin:20px;
+	border-right-style:solid;
+	border-width:1px;
+	padding:10px 0px 10px 0px;
+}
 
+input.text {
+	border:1px solid #691EFF;
+	background: #D2FF9C;
+	color:#691EFF;
+}
 
+input.button {
+	color: #D2FF9C;
+	background-color:#691EFF;
+	
+}
+input.button:hover {
+	background-color: #D2FF9C;
+	color:#691EFF;	
+}
 
+.errorMessage {
+	text-size:.85em;
+	background:#FF87B7;
+	padding:3px 3px 3px 3px;
+}
+
+.errorMessage_holder {
+	color:#fff;
+	background:#fff;
+	border:none;
+	padding:3px 3px 3px 3px;
+}
+
+.big-middle {
+	text-align:center;	
+	margin:25px;
+	width:100%;
+	font-size:1.5em;
+}

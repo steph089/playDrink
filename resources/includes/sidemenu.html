@@ -1,0 +1,19 @@
+<div class='sidemenu'>
+<ul>
+<li style='padding-top:0px'><a href='index.html'>home</a></li>
+<?php
+if(isset($_SESSION['logged-in'])){
+	echo "<li><a href='stats.php'>stats</a></li>";
+	echo "<li><a href='logout.php'>logout</a></li>";
+}
+/*
+else
+{
+
+  echo "<li><a href='login.php'>login</a></li>";
+}
+*/
+?>
+
+</ul>
+</div>

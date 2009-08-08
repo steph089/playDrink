@@ -1,0 +1,22 @@
+#players {
+	margin:15px 0px;		
+}
+
+.player {
+	border-color:#691EFF;
+	border-left-style:dashed;
+	border-top-style:dashed;
+	border-bottom-style:dashed;
+	border-width:1px;
+	/*width:68%;*/
+	background:#A5FF38;
+	text-align:center;
+	padding: 3px 3px 3px 3px;
+	margin: 5px 0px 5px 5px;
+}
+.player:hover {
+	border-left-style:solid;
+	border-top-style:solid;
+	border-bottom-style:solid;	
+	background:#D2FF9C;
+}
