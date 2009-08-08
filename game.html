@@ -1,0 +1,60 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Fuck the Dealer - playDrink.com</title>
+<?php
+require_once('resources/modules/page.php');
+?>
+
+<link  rel="stylesheet" type="text/css" href="resources/global.css">
+<script type='text/javascript' src='resources/jquery.js'></script>
+<script type='text/javascript' src='resources/jquery-ui-1.7.2.js'></script>
+<script type='text/javascript' src='resources/jquery.hotkeys-0.7.9.js'></script>
+<script type='text/javascript' src='resources/lib.js'></script>
+<script type='text/javascript' src='resources/game.js'></script>
+
+
+</head>
+<body>
+
+<?php
+include('resources/includes/logoHeader.html');;
+include('resources/includes/sidemenu.html');
+//page_userBox();
+?>
+<div class='maincontent'>
+
+<div id='table'>
+<?php
+	echo "<div class='cardContainer spacer'>";
+	for($i=0;$i<4;$i++)
+		echo "<div class='card spacer'></div>";
+	echo "</div>";
+
+	for($i=0;$i<14;$i++) {
+		echo "<div class='cardContainer'>";
+		for($ii=0;$ii<$i%5;$ii++) {
+			echo "<div class='card'>$i</div>";
+		}
+		echo "</div>";
+	}
+?>
+</div>
+
+<div class='playerList'><h2>players</h2>
+<div id='noPlayers'>none</div>
+<ul id='players'>
+</ul>
+<input type='text' class='text' id='newPlayerName'>
+<div id='showHideNewPlayerName' title='Add More Players (F2)'>+</div>
+</div> <!-- end playerList -->
+<div style='clear:left;'></div>
+<span class='bigWords'>guess:</span>
+
+</div> <!-- end mainContent -->
+</body>
+</html>
