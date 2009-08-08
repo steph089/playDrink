@@ -42,6 +42,14 @@ $restClient = new FacebookRestClient('472aa634ab715e016d7b4f0f62cd028c','afb6f38
 $user_data = $restClient->users_getStandardInfo(array($fb_id), array('first_name'));
 //print_r($user_data);
 echo $user_data[0]['first_name'] . "<br>";
+
+$friends = $facebook->api_client->fql_query("SELECT first_name, pic_square_with_logo FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = '$fb_id')");
+foreach($friends as $friend) {
+	echo "<div class='friend_box'>";
+	echo "<img src='" . $friend['pic_square_with_logo'] . "' alt='Profile Pic' /><br>";
+	echo $friend['first_name'];
+	echo "</div>";
+}
 ?>
 <div style="text-align:center;margin-top:45px;width:100%;font-size:1.5em;"><a href='game.php'>start game</a></div>
 
