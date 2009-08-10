@@ -3,7 +3,11 @@ $(function() {
 	$("#newPlayerName").hide();
 
 	$("#showHideNewPlayerName").click(showHideNewPlayerName);
-
+	
+	//gets size of window to make font bigger
+	//$("#stats").html(document.documentElement.clientHeight + " by " + document.documentElement.clientWidth);
+	//$("body").css('font-size','150%');
+	
 	$(document).bind('keydown', 'f2',
 		function (evt){
 			if($("#newPlayerName").val() == '') {

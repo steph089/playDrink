@@ -14,7 +14,6 @@ require_once('resources/modules/page.php');
 <script type='text/javascript' src='resources/jquery.js'></script>
 <script type='text/javascript' src='resources/jquery-ui-1.7.2.js'></script>
 <script type='text/javascript' src='resources/jquery.hotkeys-0.7.9.js'></script>
-<script type='text/javascript' src='resources/lib.js'></script>
 <script type='text/javascript' src='resources/game.js'></script>
 
 
@@ -22,7 +21,7 @@ require_once('resources/modules/page.php');
 <body>
 
 <?php
-include('resources/includes/logoHeader.html');;
+include('resources/includes/logoHeader.html');
 include('resources/includes/sidemenu.html');
 //page_userBox();
 ?>
@@ -30,11 +29,12 @@ include('resources/includes/sidemenu.html');
 
 <div id='table'>
 <?php
+	
 	echo "<div class='cardContainer spacer'>";
 	for($i=0;$i<4;$i++)
 		echo "<div class='card spacer'></div>";
 	echo "</div>";
-
+	/*
 	for($i=0;$i<14;$i++) {
 		echo "<div class='cardContainer'>";
 		for($ii=0;$ii<$i%5;$ii++) {
@@ -42,6 +42,7 @@ include('resources/includes/sidemenu.html');
 		}
 		echo "</div>";
 	}
+	*/
 ?>
 </div>
 
