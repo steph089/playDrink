@@ -8,6 +8,8 @@ $(function() {
 	//$("#stats").html(document.documentElement.clientHeight + " by " + document.documentElement.clientWidth);
 	//$("body").css('font-size','150%');
 	
+	playerCheck();
+	
 	$(document).bind('keydown', 'f2',
 		function (evt){
 			if($("#newPlayerName").val() == '') {
@@ -20,11 +22,10 @@ $(function() {
 	$("#newPlayerName").keypress(function(e) {
 		//alert(e.which);
 		if(e.which == 13) {
-			var errorMessage = '';
-			hideErrorMessage('addPlayerErrorMessage');
+			var errorMessage = '';			
 
 			var newName = $("#newPlayerName").val();
-			if(newName != '') {			
+			if(newName != '') {				
 				var li = buildPlayerSetupElement(newName);
 				$("#noPlayers").remove();
 				$("#players").append(li);
@@ -59,5 +60,11 @@ function showHideNewPlayerName() {
 	else {
 		$("#newPlayerName").hide().val('');
 		$("#showHideNewPlayerName").focus();
+	}
+}
+
+function playerCheck() {
+	if($(".player").size() == 0) {
+		$("#status").html("Please add at least one player to begin");
 	}
 }

@@ -8,6 +8,11 @@ session_start();
 <title>Fuck the Dealer - playDrink.com</title>
 <?php
 require_once('resources/modules/page.php');
+function __autoload($class_name) {
+	require_once "resources/classes/$class_name.php";
+}
+
+
 ?>
 
 <link  rel="stylesheet" type="text/css" href="resources/global.css">
@@ -26,19 +31,31 @@ include('resources/includes/sidemenu.html');
 //page_userBox();
 ?>
 <div class='maincontent'>
-
-<div id='table'>
-<?php
+<?php	
 	
+?>
+<div id='table'>
+<?php	
 	echo "<div class='cardContainer spacer'>";
 	for($i=0;$i<4;$i++)
 		echo "<div class='card spacer'></div>";
 	echo "</div>";
 	/*
+	$suit = array('d','h','s','c');
 	for($i=0;$i<14;$i++) {
 		echo "<div class='cardContainer'>";
 		for($ii=0;$ii<$i%5;$ii++) {
-			echo "<div class='card'>$i</div>";
+			echo "<div class='card'>";
+			try 
+			{
+				$ace = new Card($i . $suit[$ii]);
+				echo $ace->getFullName();
+			}
+			catch (Exception $e) 
+			{
+				echo 'Caught exception: ',  $e->getMessage(), "\n";
+			}
+			echo "</div>";
 		}
 		echo "</div>";
 	}
@@ -54,8 +71,19 @@ include('resources/includes/sidemenu.html');
 <div id='showHideNewPlayerName' title='Add More Players (F2)'>+</div>
 </div> <!-- end playerList -->
 <div style='clear:left;'></div>
-<span class='bigWords'>guess:</span>
-
+<span class='bigWords'>guess:</span><input type='text' id='guessBox'>
+<BR><BR>
+<div id='status'></div>
+<?php
+	if(! isset($_GET['id'])) {
+		$game = new Game;
+	}
+	else {
+		$game = new Game($_GET['id']);
+	}
+	echo $game->listCards();
+	
+?>
 </div> <!-- end mainContent -->
 </body>
 </html>
