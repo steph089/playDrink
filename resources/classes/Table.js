@@ -20,5 +20,6 @@ function Table(game_id) {
 
 function add_card(card_string) {
 	var num = card_string.substring(0,card_string.length - 1);				
-	$("#cardContainer"+num).append("<div id='card'>" + card_string + "</div>");
+	$("#cardContainer"+num).append("<div id='card' class='newly_added' style='display:none'>" + card_string + "</div>");
+	$(".newly_added").removeClass('newly_added').fadeIn('slow');
 }
