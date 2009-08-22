@@ -11,8 +11,6 @@ require_once('resources/modules/page.php');
 function __autoload($class_name) {
 	require_once "resources/classes/$class_name.php";
 }
-
-
 ?>
 
 <link  rel="stylesheet" type="text/css" href="resources/global.css">
@@ -20,7 +18,19 @@ function __autoload($class_name) {
 <script type='text/javascript' src='resources/jquery-ui-1.7.2.js'></script>
 <script type='text/javascript' src='resources/jquery.hotkeys-0.7.9.js'></script>
 <script type='text/javascript' src='resources/game.js'></script>
+<script type='text/javascript' src='resources/classes/Table.js'></script>
 
+<?php
+//*********** DATA LOAD ********************
+if(! isset($_GET['id']))
+{
+	$game = new Game;
+}
+else
+{
+	$game = new Game($_GET['id']);
+}
+?>
 
 </head>
 <body>
@@ -38,28 +48,16 @@ include('resources/includes/sidemenu.html');
 <?php
 	echo "<div class='cardContainer spacer'>";
 	for($i=0;$i<4;$i++)
+	{
 		echo "<div class='card spacer'></div>";
-	echo "</div>";
-	/*
-	$suit = array('d','h','s','c');
-	for($i=0;$i<14;$i++) {
-		echo "<div class='cardContainer'>";
-		for($ii=0;$ii<$i%5;$ii++) {
-			echo "<div class='card'>";
-			try
-			{
-				$ace = new Card($i . $suit[$ii]);
-				echo $ace->getFullName();
-			}
-			catch (Exception $e)
-			{
-				echo 'Caught exception: ',  $e->getMessage(), "\n";
-			}
-			echo "</div>";
-		}
-		echo "</div>";
 	}
-	*/
+	echo "</div>";
+
+	for($i=1;$i<=13;$i++) 
+	{
+		echo "<div id='cardContainer$i' class='cardContainer'></div>";
+	}
+
 ?>
 </div>
 
@@ -74,18 +72,7 @@ include('resources/includes/sidemenu.html');
 <span class='bigWords'>guess:</span><input type='text' id='guessBox'>
 <BR><BR>
 <div id='status'></div>
-<?php
-	if(! isset($_GET['id']))
-	{
-		$game = new Game;
-	}
-	else
-	{
-		$game = new Game($_GET['id']);
-	}
-	echo $game->deck->list_cards();
 
-?>
 </div> <!-- end mainContent -->
 </body>
 </html>

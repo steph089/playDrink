@@ -58,5 +58,24 @@ class Deck
 	{
 		shuffle($this->_cards);
 	}
+	
+	public function sub_deck($start, $end=0) {
+		$card_array = array();
+		if($start < 0) 
+		{
+			$start = $this->_cards.length() + $start - 1;
+		}
+		
+		if($end < 1) 
+		{
+			$end = $this->_cards.length() + $end - 1;
+		}
+		
+		for($i=$start;$i<$end;$i++) 
+		{
+			array_push($card_array, $this->_cards[$i]);
+		}
+		return $card_array;
+	}
 }
 ?>

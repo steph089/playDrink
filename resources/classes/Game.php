@@ -7,7 +7,10 @@ class Game
 	public $deck;
 	private $_next_card;
 
-	public function __construct() {
+	
+// ******************* CONSTRUCT ***************************************
+	public function __construct() 
+	{
 		$argv = func_get_args();
 		switch(func_num_args())
 		{
@@ -39,6 +42,22 @@ class Game
 
 		$this->_game_id = $game_id;
 	}
-
+	
+// ******************* ACCESS ******************************************
+	public function get_next_card() 
+	{
+		return $this->_next_card;
+	}
+	
+	public function get_table_cards() 
+	{
+		return $this->deck->sub_deck(0,$this->_next_card-1);
+	}
+	
+	public function get_table_cards_string() 
+	{
+		$sub_deck = $this->get_table_cards();
+		return implode(',', $sub_deck);
+	}
 }
 ?>
