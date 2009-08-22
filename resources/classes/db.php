@@ -26,13 +26,14 @@ class db {
 		mysql_close();
 	}
 
-	private function runQuery($query) {
-		return mysql_query($query) or die("Query: <br>$query<br> has Failed..." . mysql_error());
+	private function run_query($query) {
+		$result =  mysql_query($query) or die("Query: <br>$query<br> has Failed..." . mysql_error());
+		return $result;
 	}
 
-	private function insertedID() {
+	private function inserted_id() {
 		$query = "SELECT LAST_INSERT_ID()";
-		$result=mysql_query($query) or die("Last Inserted ID query Failed..." . mysql_error());
+		$result = $this->run_query($query);
 		$row = mysql_fetch_array($result)or die("Data Retrival Failed");
 		return $row[0];
 	}
@@ -42,14 +43,14 @@ class db {
 		$fields = implode(',',$fields);
 		$values = "'" . implode("','",$values) . "'";
 		$query = "INSERT INTO $table ($fields) VALUES ($values)";
-		$results = $this->runQuery($query);
+		$results = $this->run_query($query);
 
-		return $this->insertedID();
+		return $this->inserted_id();
 	}
 
-	public function selectValue($table, $field, $IDfield, $ID) {
+	public function select_value($table, $field, $IDfield, $ID) {
 		$query = "SELECT $field FROM $table WHERE $IDfield = '$ID'";
-		$results = $this->runQuery($query);
+		$result = $this->run_query($query);
 		$row = mysql_fetch_array($result)or die("Data Retrival Failed");
 		return $row[0];
 	}

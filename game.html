@@ -31,11 +31,11 @@ include('resources/includes/sidemenu.html');
 //page_userBox();
 ?>
 <div class='maincontent'>
-<?php	
-	
+<?php
+
 ?>
 <div id='table'>
-<?php	
+<?php
 	echo "<div class='cardContainer spacer'>";
 	for($i=0;$i<4;$i++)
 		echo "<div class='card spacer'></div>";
@@ -46,12 +46,12 @@ include('resources/includes/sidemenu.html');
 		echo "<div class='cardContainer'>";
 		for($ii=0;$ii<$i%5;$ii++) {
 			echo "<div class='card'>";
-			try 
+			try
 			{
 				$ace = new Card($i . $suit[$ii]);
 				echo $ace->getFullName();
 			}
-			catch (Exception $e) 
+			catch (Exception $e)
 			{
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
@@ -75,14 +75,16 @@ include('resources/includes/sidemenu.html');
 <BR><BR>
 <div id='status'></div>
 <?php
-	if(! isset($_GET['id'])) {
+	if(! isset($_GET['id']))
+	{
 		$game = new Game;
 	}
-	else {
+	else
+	{
 		$game = new Game($_GET['id']);
 	}
-	echo $game->listCards();
-	
+	echo $game->deck->list_cards();
+
 ?>
 </div> <!-- end mainContent -->
 </body>

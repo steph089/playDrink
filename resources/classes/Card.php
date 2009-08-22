@@ -4,10 +4,10 @@ class Card {
 	private $_rank;
 	private $_suit;
 
-	public function __construct($initString) {
-		if(strlen($initString) <= 3) {
-			$preRank = substr($initString,0,-1);
-			switch($preRank) {
+	public function __construct($init_string) {
+		if(strlen($init_string) <= 3) {
+			$pre_rank = substr($init_string,0,-1);
+			switch($pre_rank) {
 				case 1:
 				case 2:
 				case 3:
@@ -21,7 +21,7 @@ class Card {
 				case 11:
 				case 12:
 				case 13:
-					$this->_rank = $preRank;
+					$this->_rank = $pre_rank;
 					break;
 				case 'A':
 				case 'a':
@@ -44,8 +44,8 @@ class Card {
 					break;
 			}
 
-			$preSuit = substr($initString,-1);
-			switch($preSuit) {
+			$pre_suit = substr($init_string,-1);
+			switch($pre_suit) {
 				case 'h':
 				case 'H':
 					$this->_suit = 'Heart';
@@ -68,22 +68,22 @@ class Card {
 		}
 	}
 	
-	private function pluralizeSuit() {
+	private function pluralize_suit() {
 		return $this->_suit . 's';
 	}
 	
-	private function pluralizeRank() {
-		$plural = $this->getRankName();
+	private function pluralize_rank() {
+		$plural = $this->get_rank_name();
 		if($this->_rank == 6)
 			$plural .= 'e';
 		return $plural . 's';
 	}
 	
-	public function getFullName() {
-		return $this->getRankName() . ' of ' . $this->pluralizeSuit();
+	public function get_full_name() {
+		return $this->get_rank_name() . ' of ' . $this->pluralize_suit();
 	}
 
-	public function getRankName() {
+	public function get_rank_name() {
 		switch($this->_rank) {
 			case 1:
 				return "Ace";
@@ -127,7 +127,7 @@ class Card {
 		}
 	}
 
-	public function getRankInt() {
+	public function get_rank_int() {
 		return $this->_rank;
 	}
 	
