@@ -77,5 +77,14 @@ class Deck
 		}
 		return $card_array;
 	}
+	
+	public function get_card($index, $return_func='card_string')
+	{
+		$return_func = 'get_' . $return_func;
+		
+		$card = $this->_cards[$index];
+		return $card->$return_func();
+		
+	}
 }
 ?>

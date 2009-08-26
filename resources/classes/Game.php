@@ -5,7 +5,7 @@ class Game
 {
 	private $_game_id;
 	public $deck;
-	private $_next_card;
+	private $_next_card; //index integer of next (current) card in deck order
 
 	
 // ******************* CONSTRUCT ***************************************
@@ -44,6 +44,11 @@ class Game
 	}
 	
 // ******************* ACCESS ******************************************
+	public function get_game_id() 
+	{
+		return $this->_game_id;
+	}
+	
 	public function get_next_card() 
 	{
 		return $this->_next_card;
@@ -58,6 +63,14 @@ class Game
 	{
 		$sub_deck = $this->get_table_cards();
 		return implode(',', $sub_deck);
+	}
+	
+//************************** OPS **************************************
+	public function end_turn() {
+		$this->_next_card++;
+		
+		$db = new db_game();
+		$db->set_value('next_card',$this->_next_card, $this->_game_id);
 	}
 }
 ?>

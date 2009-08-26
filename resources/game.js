@@ -10,7 +10,7 @@ $(function() {
 	//$("#stats").html(document.documentElement.clientHeight + " by " + document.documentElement.clientWidth);
 	//$("body").css('font-size','150%');
 
-	table = new Table(10);
+	table = new Table($("#game_id").val());
 
 	playerCheck();
 
@@ -38,11 +38,30 @@ $(function() {
 			}
 		}
 	});
-	
+
 	$("#guessBox").keypress(function(e) {
 		//alert(e.which);
 		if(e.which == 13) {
-			table.add_card($(this).val());
+			$.post(
+				'resources/ajax/parse_guess.php',
+				{
+					'game_id'	:$("#game_id").val(),
+					'guess'		:$(this).val(),
+					'guess_num'	:$("#guess_num").val(),
+				},
+				function(data) {
+					if($("#guess_num").val() == 2 || data.end_turn)
+					{
+						$("#guess_num").val('1');
+						table.add_card(data.card_string);
+					}
+					else
+					{
+						$("#guess_num").val('2');
+					}
+					changeStatus(data.status);
+				},
+				'json');
 			$(this).val('');
 		}
 	});
@@ -65,6 +84,10 @@ function showHideNewPlayerName() {
 
 function playerCheck() {
 	if($(".player").size() == 0) {
-		$("#status").html("Please add at least one player to begin");
+		changeStatus("add some players (F2)");
 	}
+}
+
+function changeStatus(statusText) {
+	$("#status").html(statusText);
 }

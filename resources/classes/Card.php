@@ -67,18 +67,18 @@ class Card {
 			}
 		}
 	}
-	
+
 	private function pluralize_suit() {
 		return $this->_suit . 's';
 	}
-	
+
 	private function pluralize_rank() {
 		$plural = $this->get_rank_name();
 		if($this->_rank == 6)
 			$plural .= 'e';
 		return $plural . 's';
 	}
-	
+
 	public function get_full_name() {
 		return $this->get_rank_name() . ' of ' . $this->pluralize_suit();
 	}
@@ -127,10 +127,16 @@ class Card {
 		}
 	}
 
-	public function get_rank_int() {
+	public function get_rank_int()
+	{
 		return $this->_rank;
 	}
-	
+
+	public function get_card_string()
+	{
+		return "$this";
+	}
+
 	public function __toString() {
 		return $this->_rank . strtolower(substr($this->_suit,0,1));
 	}

@@ -26,19 +26,19 @@ class db {
 		mysql_close();
 	}
 
-	private function run_query($query) {
+	protected function run_query($query) {
 		$result =  mysql_query($query) or die("Query: <br>$query<br> has Failed..." . mysql_error());
 		return $result;
 	}
 
-	private function inserted_id() {
+	protected function inserted_id() {
 		$query = "SELECT LAST_INSERT_ID()";
 		$result = $this->run_query($query);
 		$row = mysql_fetch_array($result)or die("Data Retrival Failed");
 		return $row[0];
 	}
 
-	public function insert($table, $fields, $values)
+	protected function insert($table, $fields, $values)
 	{
 		$fields = implode(',',$fields);
 		$values = "'" . implode("','",$values) . "'";
@@ -48,11 +48,17 @@ class db {
 		return $this->inserted_id();
 	}
 
-	public function select_value($table, $field, $IDfield, $ID) {
-		$query = "SELECT $field FROM $table WHERE $IDfield = '$ID'";
+	protected function select_value($table, $field, $id_field, $id) {
+		$query = "SELECT $field FROM $table WHERE $id_field = '$id'";
 		$result = $this->run_query($query);
 		$row = mysql_fetch_array($result)or die("Data Retrival Failed");
 		return $row[0];
+	}
+	
+	public function update_value($table, $field, $value, $id_field, $id)
+	{
+		$query = "UPDATE $table SET $field  = '$value' WHERE $id_field = '$id'";
+		$this->run_query($query);
 	}
 
 }

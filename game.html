@@ -34,8 +34,9 @@ else
 
 </head>
 <body>
-
 <?php
+echo "<input id='game_id' type='hidden' value='" . $game->get_game_id() . "' />";
+echo "<input id='guess_num' type='hidden' value='1' />";
 include('resources/includes/logoHeader.html');
 include('resources/includes/sidemenu.html');
 //page_userBox();
