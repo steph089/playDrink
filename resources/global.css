@@ -71,18 +71,18 @@ div.noscript {
 	margin-right:auto;
 }
 
-a:link, a:visited, span.linkSpan {
+a:link, a:visited, span.link_span {
 	color:#691eff;
 	text-decoration:underline;	
 }
 
-a:hover, span.linkSpan:hover {
+a:hover, span.link_span:hover {
 	text-decoration:none;
 	color:#A5FF38;	
 	cursor:pointer;
 }
 
-div.userBox a:hover {
+div.user_box a:hover {
 	color:#691eff;
 }
 
@@ -91,7 +91,7 @@ div.header{
   padding:0%;
 }
 
-div.userBox {
+div.user_box {
   position:fixed;
   /*top:10px;*/
   right:0%;
@@ -106,24 +106,24 @@ div.userBox {
   padding-bottom:3px;
   padding-left:3px;
 }
-div.userbox span1{
+div.user_box span1{
   color:#691EFF;
   font-size:1.25em;
   font-weight:bold;
 }
-div.userbox table{
+div.user_box table{
   font-size:1em;
   padding:0px;
   border-width:0px;
   line-height:.8em;
   margin:0 0 0 1em;
 }
-div.userbox TD#type2{
+div.user_box TD#type2{
   font-size:1.2em;
   font-weight:bold;
 }
 
-div.sidemenu {
+div.side_menu {
 
   float:left;
   margin-top:20px;
@@ -134,7 +134,7 @@ div.sidemenu {
   padding-left:10px;
 
 }
-div.sidemenu ul {
+div.side_menu ul {
   list-style-type:none;
   border-left-style:solid;
   border-bottom-style:solid;
@@ -142,11 +142,11 @@ div.sidemenu ul {
   border-width:1px;
   padding:1em;
 }
-div.sidemenu li {
+div.side_menu li {
  padding-top:5px;
 }
 
-div.maincontent {
+div.main_content {
   margin-top:20px;
   margin-bottom:20px;
   padding-left:5px;  
@@ -163,7 +163,7 @@ div.main_page_login {
 	background-color:#D2FF9C;
 }
 
-.playerList {
+.player_list {
 	float:right;
 	width:15%;	
 	/*border-right-style:solid;
@@ -194,19 +194,19 @@ div.main_page_login {
 	background:#D2FF9C;
 }
 
-#noPlayers {
+#no_players {
 	font-style:italic;
 	padding:10px 0px 15px;
 }
 
-#showHideNewPlayerName {
+#show_hide_new_player_name {
 	float:right;
 	background:#691EFF;
 	color:#a5ff38;
 	padding:2px 4px;
 }
 
-#showHideNewPlayerName:hover {
+#show_hide_new_player_name:hover {
 	color:#691EFF;
 	background:#a5ff38;
 	font-weight:bold;	
@@ -214,7 +214,7 @@ div.main_page_login {
 
 }
 
-#newPlayerName {
+#new_player_name {
 	border-right-style:none;
 	float:right;
 }
@@ -235,13 +235,13 @@ input.button:hover {
 	color:#691EFF;	
 }
 
-.errorMessage {
+.error_message {
 	text-size:.85em;
 	background:#FF87B7;
 	padding:3px 3px 3px 3px;
 }
 
-.errorMessage_holder {
+.error_message_holder {
 	color:#fff;
 	background:#fff;
 	border:none;
@@ -264,7 +264,7 @@ input.button:hover {
 	margin-left:.5em;
 }
 
-.cardContainer {
+.card_container {
 	float:left;
 	text-align:center;
 	width:6.1%;	
@@ -296,7 +296,7 @@ input.button:hover {
 	border: none;
 }
 
-.bigWords {
+.big_words {
 	font-weight:bold;
 	font-size:2em;
 }

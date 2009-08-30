@@ -2,9 +2,9 @@ var table;
 
 $(function() {
 	$("#players").sortable();
-	$("#newPlayerName").hide();
+	$("#new_player_name").hide();
 
-	$("#showHideNewPlayerName").click(showHideNewPlayerName);
+	$("#show_hide_new_player_name").click(show_hide_new_player_name);
 
 	//gets size of window to make font bigger
 	//$("#stats").html(document.documentElement.clientHeight + " by " + document.documentElement.clientWidth);
@@ -16,30 +16,31 @@ $(function() {
 
 	$(document).bind('keydown', 'f2',
 		function (evt){
-			if($("#newPlayerName").val() == '') {
-				showHideNewPlayerName();
+			if($("#new_player_name").val() == '') {
+				show_hide_new_player_name();
 			}
 			return false;
 		}
 	);
 
-	$("#newPlayerName").keypress(function(e) {
+	$("#new_player_name").keypress(function(e) {
 		//alert(e.which);
 		if(e.which == 13) {
-			var newName = $("#newPlayerName").val();
-			if(newName != '') {
-				var li = buildPlayerSetupElement(newName);
-				$("#noPlayers").remove();
+			var new_name = $("#new_player_name").val();
+			if(new_name != '') {
+				var li = build_player_setup_element(new_name);
+				$("#no_players").remove();
 				$("#players").append(li);
-				$("#newPlayerName").val('');
+				$("#new_player_name").val('');
 			}
 			else {
-				showHideNewPlayerName();
+				show_hide_new_player_name();
+				$("#guess_box").focus();
 			}
 		}
 	});
 
-	$("#guessBox").keypress(function(e) {
+	$("#guess_box").keypress(function(e) {
 		//alert(e.which);
 		if(e.which == 13) {
 			$.post(
@@ -59,7 +60,7 @@ $(function() {
 					{
 						$("#guess_num").val('2');
 					}
-					changeStatus(data.status);
+					change_status(data.status);
 				},
 				'json');
 			$(this).val('');
@@ -68,26 +69,7 @@ $(function() {
 
 });
 
-function buildPlayerSetupElement(newName) {
-	return "<li class='player'>" + newName + "</li>";
-}
 
-function showHideNewPlayerName() {
-	if($("#newPlayerName").css('display') == 'none') {
-		$("#newPlayerName").show().focus();
-	}
-	else {
-		$("#newPlayerName").hide().val('');
-		$("#showHideNewPlayerName").focus();
-	}
-}
-
-function playerCheck() {
-	if($(".player").size() == 0) {
-		changeStatus("add some players (F2)");
-	}
-}
-
-function changeStatus(statusText) {
-	$("#status").html(statusText);
+function change_status(statusText) {
+	$("#status").hide().html(statusText).fadeIn('slow');
 }

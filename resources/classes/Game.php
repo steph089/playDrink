@@ -6,6 +6,9 @@ class Game
 	private $_game_id;
 	public $deck;
 	private $_next_card; //index integer of next (current) card in deck order
+	
+	private $_num_players;
+	public $players;
 
 	
 // ******************* CONSTRUCT ***************************************
@@ -34,13 +37,18 @@ class Game
 
 	private function _load_game($game_id)
 	{
+		$this->_game_id = $game_id;
+		
+		//load deck
 		$db = new db_game();
 		$card_array = $db->get_deck_array($game_id);
 		$this->deck = new Deck($card_array);
 
 		$this->_next_card = $db->get_next_card($game_id);
-
-		$this->_game_id = $game_id;
+		
+		//load players
+		
+		
 	}
 	
 // ******************* ACCESS ******************************************
