@@ -1,0 +1,1 @@
+ALTER TABLE `players` ADD `order_int` INT NOT NULL AFTER `game_id` ;

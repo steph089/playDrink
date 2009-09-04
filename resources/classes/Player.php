@@ -4,7 +4,7 @@ require_once 'db_player.php';
 class Player
 {
 	private $_name;
-	private $_player_id;	
+	private $_player_id;
 
 // ******************* CONSTRUCT ***************************************
 	public function __construct()
@@ -21,11 +21,12 @@ class Player
 		}
 	}
 
-	private function _add_new_player($game_id, $name)
+	private function _add_new_player($game_id, $name, $order_int)
 	{
-		$db = new db_player();
-		$this->_player_id = $db->insert_player($game_id, $name);
-		$this->_name = $name;		
+		$this->_name = $name;
+		$this->_player_id = 15;
+		//$db = new db_player();
+		//$this->_player_id = $db->insert_player($game_id, $name, $order_int);
 	}
 
 	private function _load_player($player_id)
@@ -52,7 +53,7 @@ class Player
 	{
 		return $this->_name;
 	}
-	
+
 	public function get_li()
 	{
 		return "<li class='player'>" . $this->_name . "</li>";

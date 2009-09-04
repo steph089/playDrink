@@ -88,9 +88,9 @@ class db {
 		$this->run();
 	}
 
-	protected function select_list($table, $field, $id_field, $id)
+	protected function select_list($table, $field, $id_field, $id, $extraCond)
 	{
-		$this->_query = "SELECT $field FROM $table WHERE $id_field = '$id'";
+		$this->_query = "SELECT $field FROM $table WHERE $id_field = '$id' $extraCond";
 		$results = $this->run();
 		if(mysql_num_rows($results) == 0)
 		{

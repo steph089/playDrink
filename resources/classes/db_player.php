@@ -10,9 +10,9 @@ class db_player extends db
 		return parent::select_row(self::_TABLE, self::_ID_FIELD, $player_id);
 	}
 	
-	public function insert_player($game_id, $name) 
+	public function insert_player($game_id, $name, $order_int) 
 		{
-			$values = array('name'=>$name, 'game_id'=>$game_id);
+			$values = array('name'=>$name, 'game_id'=>$game_id, 'order_int'=>$order_int);
 			return parent::insert(self::_TABLE, $values);
 		}
 
