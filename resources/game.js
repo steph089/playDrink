@@ -24,14 +24,25 @@ $(function() {
 	);
 
 	$("#new_player_name").keypress(function(e) {
-		//alert(e.which);
+		//alert(e.which);		
 		if(e.which == 13) {
+			var game_id = $("#game_id").val();
 			var new_name = $("#new_player_name").val();
 			if(new_name != '') {
-				var li = build_player_setup_element(new_name);
-				$("#no_players").remove();
-				$("#players").append(li);
-				$("#new_player_name").val('');
+				$.post(
+					'resources/ajax/add_player.php',
+					{
+						'name': new_name,
+						'game_id':game_id
+					},
+					function(data) 
+					{						
+						$("#no_players").remove();
+						$("#players").append(data.li);
+						$("#new_player_name").val('');
+					},
+				'json');
+				
 			}
 			else {
 				show_hide_new_player_name();

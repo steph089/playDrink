@@ -17,11 +17,19 @@ class Player_List
 		}
 	}
 
+// **************** MANIP ********************************************
+	public function add_player($game_id, $name)
+	{
+		$new_player = new Player($game_id, $name);
+		array_push($this->_players, $new_player);
+	}
+
 // *************** ACCESS ********************************************
 	
-	public function num_players() {
+	public function num_players() 
+	{
 		return count($this->_players);
-	}
+	}	
 	
 // **************** DISPLAY ******************************************
 	
@@ -30,9 +38,17 @@ class Player_List
 		$output = '';
 		for($i=0; $i<count($this->_players); $i++)
 		{
-			$output .= "<li class='player'>" . $this->_players[$i]->name() . "</li>";
+			$output .= $this->_players[$i]->get_li();
 		}
 		return $output;
 	}
+	
+	public function get_li($index)
+	{
+		
+		return $this->_players[$index]->get_li();
+	}
+	
+	
 }
 ?>

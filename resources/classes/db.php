@@ -44,14 +44,28 @@ class db {
 		return $row[0];
 	}
 
-	protected function insert($table, $fields, $values)
+	protected function insert($table, $values)
 	{
-		$fields = implode(',',$fields);
-		$values = "'" . implode("','",$values) . "'";
-		$this->_query = "INSERT INTO $table ($fields) VALUES ($values)";
-		$results = $this->run();
+		if(count($values) > 0) 
+		{
+			$field_list = '';
+			$value_list = '';
+			foreach($values as $key => $value) {
+				$field_list .= "" . $key . ", ";
+				$value_list .= "'" . mysql_real_escape_string($value) . "', ";
+			}
+			$field_list = trim($field_list, ", ");
+			$value_list = trim($value_list, ", ");
 
-		return $this->inserted_id();
+			$this->_query = "INSERT INTO $table ($field_list) VALUES ($value_list)";
+			$results = $this->run();
+
+			return $this->inserted_id();
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	protected function select_value($table, $field, $id_field, $id) {

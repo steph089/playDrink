@@ -7,9 +7,8 @@ class db_game extends db
 
 	public function new_game($deck)
 	{
-		$fields = array('deck');
-		$values = array($deck);
-		return parent::insert(self::_TABLE, $fields, $values);
+		$values = array('deck'=>$deck);
+		return parent::insert(self::_TABLE, $values);
 	}
 
 
