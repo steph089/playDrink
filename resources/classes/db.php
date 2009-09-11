@@ -1,7 +1,7 @@
 <?php
 
 class db {
-	const enviro = 'dev';
+	const enviro = 'prod';
 
 	public function __construct() {
 		switch(self::enviro) {
@@ -13,9 +13,9 @@ class db {
 				break;
 			case 'prod':
 			default:
-				$username="";
-				$password="";
-				$database="";
+				$username="presenc2_playdri";
+				$password="secure";
+				$database="presenc2_playdrink";
 				break;
 		}
 		$con = mysql_connect($host,$username,$password) or die("Unable to connect to Database");
