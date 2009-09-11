@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -64,11 +64,17 @@ include('resources/includes/sidemenu.html');
 </div>
 
 <div class='player_list'><h2>players</h2>
-<?php
-	
-	echo "<div id='no_players'>none</div>";
-?>
 <ul id='players'>
+<?php	
+	if($game->players->num_players() == 0)
+	{
+		echo "<div id='no_players'>none</div>";
+	}
+	else
+	{
+		echo $game->players->get_player_list_elements();
+	}
+?>
 </ul>
 <input type='text' class='text' id='new_player_name'>
 <div id='show_hide_new_player_name' title='Add More Players (F2)'>+</div>

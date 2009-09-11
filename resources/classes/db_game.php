@@ -5,37 +5,23 @@ class db_game extends db
 	const _TABLE = 'games';
 	const _ID_FIELD = 'game_id';
 
-	public function get_value($field, $game_id)
-	{
-		return $this->select_value(self::_TABLE, $field, self::_ID_FIELD, $game_id);
-	}
-
-	public function set_value($field, $value, $game_id)
-	{
-		$this->update_value(self::_TABLE, $field, $value, self::_ID_FIELD, $game_id);
-	}
-
 	public function new_game($deck)
 	{
-		$fields = array('deck');
-		$values = array($deck);
-		return parent::insert(self::table, $fields, $values);
+		$values = array('deck'=>$deck);
+		return parent::insert(self::_TABLE, $values);
 	}
 
 
 	public function get_deck_array($game_id)
 	{
-		$init_string = $this->get_value('deck', $game_id);
+		$init_string = parent::select_value(self::_TABLE, 'deck', self::_ID_FIELD, $game_id);
 		$deck_array =  explode(',', $init_string);
 		return $deck_array;
 	}
 
 	public function get_next_card($game_id)
 	{
-		return $this->get_value('next_card',$game_id);
+		return parent::select_value(self::_TABLE, 'next_card', self::_ID_FIELD, $game_id);
 	}
-
-
-
 }
 ?>
