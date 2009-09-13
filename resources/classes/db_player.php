@@ -11,10 +11,10 @@ class db_player extends db
 	}
 	
 	public function insert_player($game_id, $name, $order_int) 
-		{
-			$values = array('name'=>$name, 'game_id'=>$game_id, 'order_int'=>$order_int);
-			return parent::insert(self::_TABLE, $values);
-		}
+	{
+		$values = array('name'=>$name, 'game_id'=>$game_id, 'order_int'=>$order_int);
+		return parent::insert(self::_TABLE, $values);
+	}
 
 }
 ?>

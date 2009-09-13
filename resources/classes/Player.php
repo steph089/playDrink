@@ -12,8 +12,8 @@ class Player
 		$argv = func_get_args();
 		switch(func_num_args())
 		{
-			case 2:
-				$this->_add_new_player($argv[0], $argv[1]);
+			case 3:
+				$this->_add_new_player($argv[0], $argv[1], $argv[2]);
 			break;
 			case 1:
 				$this->_load_player($argv[0]);
@@ -22,11 +22,11 @@ class Player
 	}
 
 	private function _add_new_player($game_id, $name, $order_int)
-	{
+	{		
 		$this->_name = $name;
-		$this->_player_id = 15;
-		//$db = new db_player();
-		//$this->_player_id = $db->insert_player($game_id, $name, $order_int);
+		$this->_player_id = 20;
+		$db = new db_player();
+		$this->_player_id = $db->insert_player($game_id, $name, $order_int);		
 	}
 
 	private function _load_player($player_id)

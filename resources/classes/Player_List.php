@@ -36,7 +36,7 @@ class Player_List
 	public function get_player_list_elements()
 	{
 		$output = '';
-		for($i=0; $i<count($this->_players); $i++)
+		for($i=0; $i<$this->num_players(); $i++)
 		{
 			$output .= $this->_players[$i]->get_li();
 		}
@@ -45,7 +45,14 @@ class Player_List
 
 	public function get_li($index)
 	{
-		return $this->_players[$index]->get_li();
+		if($index <= $this->num_players()-1)
+		{
+			return $this->_players[$index]->get_li();
+		}
+		else
+		{
+			return "Get Player List Item Index Error";
+		}
 	}
 
 }
