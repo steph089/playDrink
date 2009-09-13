@@ -1,6 +1,17 @@
+
 <?php
-//session_start();
+//*********** DATA LOAD ********************
+if(! isset($_GET['id']))
+{
+	$game = new Game;
+	echo "<meta HTTP-EQUIV='REFRESH' content='0; url=game.html?id=" . $game->get_game_id() . "'>";
+}
+else
+{
+	$game = new Game($_GET['id']);	
+}
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -20,18 +31,6 @@ function __autoload($class_name) {
 <script type='text/javascript' src='resources/game.js'></script>
 <script type='text/javascript' src='resources/classes/Table.js'></script>
 <script type='text/javascript' src='resources/classes/Player_List.js'></script>
-
-<?php
-//*********** DATA LOAD ********************
-if(! isset($_GET['id']))
-{
-	$game = new Game;
-}
-else
-{
-	$game = new Game($_GET['id']);
-}
-?>
 
 </head>
 <body>
