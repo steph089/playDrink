@@ -7,10 +7,14 @@ class Player_List
 
 	public function __construct($game_id)
 	{
-		$this->_players = array();
 		$db = new db_player_list();
 		$player_array = $db->get_players($game_id);
+		self::build_player_array($player_array);
+	}
 
+	private function build_player_array($player_array)
+	{
+		$this->_players = array();
 		for($i=0; $i < count($player_array); $i++)
 		{
 			array_push($this->_players, new Player($player_array[$i]));
@@ -20,8 +24,30 @@ class Player_List
 // **************** MANIP ********************************************
 	public function add_player($game_id, $name)
 	{
-		$new_player = new Player($game_id, $name, $this->num_players()-1);
-		$this->_players[] = $new_player;
+		$this->_players[] = new Player($game_id, $name, $this->num_players());
+		switch($this->num_players())
+		{
+			case 1:
+				$this->_players[$this->num_players()-1]->make_dealer($game_id);
+				break;
+			case 2:
+				$this->_players[$this->num_players()-1]->make_cur_player($game_id);
+				break;
+		}
+	}
+
+	public function reorder($new_order)
+	{
+		if(count($new_order) == $this->num_players())
+		{
+			self::build_player_array($new_order);
+			$db = new db_player_list();
+			$db->save_order($this);
+		}
+		else
+		{
+			return "New Player Order Length does not match Current PLayer Order Length";
+		}
 	}
 
 // *************** ACCESS ********************************************
@@ -29,6 +55,11 @@ class Player_List
 	public function num_players()
 	{
 		return count($this->_players);
+	}
+
+	public function get_id($index)
+	{
+		return $this->_players[$index]->id();
 	}
 
 // **************** DISPLAY ******************************************

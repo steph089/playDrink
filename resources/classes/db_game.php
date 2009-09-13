@@ -23,5 +23,6 @@ class db_game extends db
 	{
 		return parent::select_value(self::_TABLE, 'next_card', self::_ID_FIELD, $game_id);
 	}
+
 }
 ?>

@@ -194,6 +194,14 @@ div.main_page_login {
 	background:#D2FF9C;
 }
 
+.dealer {
+	background:#87BBFF;
+}
+
+.cur_player {
+	background: #F9FFAD;
+}
+
 #no_players {
 	font-style:italic;
 	padding:10px 0px 15px;

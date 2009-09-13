@@ -1,7 +1,7 @@
 <?php
 
 class db {
-	const enviro = 'prod';
+	const enviro = 'dev';
 
 	private $_con;
 	private $_query;
@@ -46,7 +46,7 @@ class db {
 
 	protected function insert($table, $values)
 	{
-		if(count($values) > 0) 
+		if(count($values) > 0)
 		{
 			$field_list = '';
 			$value_list = '';
@@ -82,9 +82,13 @@ class db {
 		return $row;
 	}
 
-	protected function update_value($table, $field, $value, $id_field, $id)
+	protected function update_value($table, $field, $value, $id_field, $id, $extra_cond = '')
 	{
-		$this->_query = "UPDATE $table SET $field  = '$value' WHERE $id_field = '$id'";
+		if($value != 'NULL')
+			$value = "'" . $value . "'";
+		if($extra_cond != '')
+			$extra_cond = "AND " . $extra_cond;
+		$this->_query = "UPDATE $table SET $field  = $value WHERE $id_field = '$id' " . $extra_cond;
 		$this->run();
 	}
 

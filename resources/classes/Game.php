@@ -9,7 +9,6 @@ class Game
 
 	public $players;
 
-
 // ******************* CONSTRUCT ***************************************
 	public function __construct()
 	{
@@ -48,6 +47,7 @@ class Game
 
 		//load players
 		$this->players = new Player_List($game_id);
+
 	}
 
 // ******************* ACCESS ******************************************

@@ -1,7 +1,29 @@
 var table;
 
 $(function() {
-	$("#players").sortable();
+	$("#players").sortable({
+		stop: function(event, ui)
+		{
+			var game_id = $("#game_id").val();
+			var player_order = new Array($(".player").size());
+			var i = 0;
+			$(".player").each(function() {
+				player_order[i] = $(this).attr('player_id');
+				i++;
+			});
+			$.post(
+				'resources/ajax/reorder_players.php',
+				{
+					'game_id':game_id,
+					'new_order':player_order.join()
+				},
+				function(data)
+				{
+					
+				},
+			'json');
+		}
+	});
 	$("#new_player_name").hide();
 
 	$("#show_hide_new_player_name").click(show_hide_new_player_name);
@@ -24,7 +46,7 @@ $(function() {
 	);
 
 	$("#new_player_name").keypress(function(e) {
-		//alert(e.which);		
+		//alert(e.which);
 		if(e.which == 13) {
 			var game_id = $("#game_id").val();
 			var new_name = $("#new_player_name").val();
@@ -35,14 +57,14 @@ $(function() {
 						'name': new_name,
 						'game_id':game_id
 					},
-					function(data) 
-					{						
+					function(data)
+					{
 						$("#no_players").remove();
 						$("#players").append(data.li);
 						$("#new_player_name").val('');
 					},
 				'json');
-				
+
 			}
 			else {
 				show_hide_new_player_name();
