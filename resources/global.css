@@ -304,6 +304,11 @@ input.button:hover {
 	border: none;
 }
 
+#gets {
+	margin-left:5em;
+	padding:.2em .2em;	
+}
+
 .big_words {
 	font-weight:bold;
 	font-size:2em;

@@ -22,10 +22,10 @@ class db_player extends db
 		if($only_one)
 		{
 			$extra_cond = "game_id = '$game_id'";
-			parent::update_value(self::_TABLE, 'modifier', "NULL", 'modifier', $modifier, $extra_cond);
+			parent::update_value(self::_TABLE, 'modifier', "NULL", 'modifier', $player->modifier(), $extra_cond);
 		}
 
-		parent::update_value(self::_TABLE, 'modifier', $player->modifier(), self::_ID_FIELD, $id);
+		parent::update_value(self::_TABLE, 'modifier', $player->modifier(), self::_ID_FIELD, $player->id());
 	}
 
 }

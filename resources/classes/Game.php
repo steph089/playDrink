@@ -4,14 +4,18 @@ require_once 'db_game.php';
 class Game
 {
 	private $_game_id;
-	public $deck;
 	private $_next_card; //index integer of next (current) card in deck order
+	private $_gets;
+	private $_guess_num;
 
+	public $deck;
 	public $players;
 
 // ******************* CONSTRUCT ***************************************
 	public function __construct()
 	{
+
+
 		$argv = func_get_args();
 		switch(func_num_args())
 		{
@@ -26,7 +30,10 @@ class Game
 	}
 
 	private function _start_new_game() {
-		$this->_next_card = 0;
+		$this->_next_card 	= 0;
+		$this->_gets 		= 0;
+		$this->_guess_num 	= 1;
+
 		$this->deck = new Deck;
 		$db = new db_game;
 		$this->_game_id = $db->new_game((string)$this->deck);
@@ -41,9 +48,13 @@ class Game
 		//load deck
 		$db = new db_game();
 		$card_array = $db->get_deck_array($game_id);
-		$this->deck = new Deck($card_array);
-
-		$this->_next_card = $db->get_next_card($game_id);
+		$this->deck = new Deck($card_array);		 
+		
+		//load game vars
+		$game_vars = $db->get_game_vars($this);
+		$this->_gets = $game_vars['gets'];
+		$this->_guess_num = $game_vars['guess_num'];
+		$this->_next_card = $game_vars['next_card'];
 
 		//load players
 		$this->players = new Player_List($game_id);
@@ -72,12 +83,60 @@ class Game
 		return implode(',', $sub_deck);
 	}
 
+	public function gets()
+	{
+		return $this->_gets;
+	}
+
+	public function guess_num()
+	{
+		return $this->_guess_num;
+	}
+
 //************************** OPS **************************************
+
+	public function end_guess()
+	{
+		$db = new db_game();
+		$db->save_game_vars($this);
+	}
+
 	public function end_turn() {
 		$this->_next_card++;
 
 		$db = new db_game();
-		$db->set_value('next_card',$this->_next_card, $this->_game_id);
+		$db->set_next_card($this);
+		
+		if($this->_gets == 3)
+		{
+			//increment dealer
+			//make new player old dealer
+		}
+		else 
+		{
+			// increment player
+		}
+	}
+
+	public function increment_guess_num()
+	{
+		$this->_guess_num++;
+	}
+
+	public function reset_guess_num()
+	{
+		$this->_guess_num = 1;
+	}
+
+	public function increment_gets()
+	{
+		$this->_gets++;
+	}
+
+	public function reset_gets()
+	{
+		$this->_gets = 0;
 	}
 }
+
 ?>

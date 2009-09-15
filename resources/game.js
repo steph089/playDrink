@@ -19,7 +19,7 @@ $(function() {
 				},
 				function(data)
 				{
-					
+
 				},
 			'json');
 		}
@@ -79,20 +79,17 @@ $(function() {
 			$.post(
 				'resources/ajax/parse_guess.php',
 				{
-					'game_id'	:$("#game_id").val(),
-					'guess'		:$(this).val(),
-					'guess_num'	:$("#guess_num").val(),
+					'game_id'	: $("#game_id").val(),
+					'guess'		: $(this).val()
 				},
 				function(data) {
 					if($("#guess_num").val() == 2 || data.end_turn)
 					{
-						$("#guess_num").val('1');
 						table.add_card(data.card_string);
 					}
-					else
-					{
-						$("#guess_num").val('2');
-					}
+
+					$("#gets").html(data.gets);
+					$("#geuss_num").val(data.guess);
 					change_status(data.status);
 				},
 				'json');
