@@ -7,10 +7,9 @@ function __autoload($class_name) {
 if(isset($_POST['name']) && isset($_POST['game_id']))
 {
 	$game = new Game($_POST['game_id']);
-	$game->players->add_player($game->get_game_id(),$_POST['name']);
-	$index = $game->players->num_players()-1;
-	$json_array = array('li'=>$game->players->get_li($index));
-	//$json_array = array('li'=>$game->players->get_player_list_elements());
+	$new_player = $game->add_player($_POST['name']);	
+	$json_array = array('li'=>$game->get_player_li($new_player));
+	$json_array['status'] = 'added a new player named ' . $new_player->get_name();
 
 	echo json_encode($json_array);
 }

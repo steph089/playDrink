@@ -49,47 +49,33 @@ class Player_List
 			return "New Player Order Length does not match Current PLayer Order Length";
 		}
 	}
-	
-	public function increment_player()
-	{
-		
-	}
+
 
 // *************** ACCESS ********************************************
 
-	public function num_players()
+	public function get_num_players()
 	{
 		return count($this->_players);
 	}
 
 	public function get_id($index)
 	{
-		return $this->_players[$index]->id();
+		return $this->_players[$index]->get_id();
+	}
+	
+	public function get_name($index)
+	{
+		return $this->_players[$index]->get_name();
+	}
+	
+	public function get_player($index)
+	{
+		return $this->_players[$index];
 	}
 
 // **************** DISPLAY ******************************************
 
-	public function get_player_list_elements()
-	{
-		$output = '';
-		for($i=0; $i<$this->num_players(); $i++)
-		{
-			$output .= $this->_players[$i]->get_li();
-		}
-		return $output;
-	}
 
-	public function get_li($index)
-	{
-		if($index <= $this->num_players()-1)
-		{
-			return $this->_players[$index]->get_li();
-		}
-		else
-		{
-			return "Get Player List Item Index Error";
-		}
-	}
 
 }
 ?>

@@ -60,8 +60,9 @@ $(function() {
 					function(data)
 					{
 						$("#no_players").remove();
-						$("#players").append(data.li);
+						$("#players").append(data.li);						
 						$("#new_player_name").val('');
+						change_status(data.status);
 					},
 				'json');
 
@@ -87,7 +88,13 @@ $(function() {
 					{
 						table.add_card(data.card_string);
 					}
-
+					
+					if(data.new_player_id != undefined)
+					{
+						$(".cur_player").removeClass('cur_player');
+						$("li[player_id=" + data.new_player_id + "]").addClass('cur_player');
+					}
+					
 					$("#gets").html(data.gets);
 					$("#geuss_num").val(data.guess);
 					change_status(data.status);

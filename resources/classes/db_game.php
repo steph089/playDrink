@@ -23,16 +23,24 @@ class db_game extends db
 	{
 		return parent::select_value(self::_TABLE, 'next_card', self::_ID_FIELD, $game_id);
 	}
-	
+
 	public function set_next_card($game)
-	{		
+	{
 		parent::update_value(self::_TABLE, 'next_card', $game->get_next_card(), self::_ID_FIELD, $game->get_game_id());
 	}
-	
+
 	public function save_game_vars($game)
 	{
-		parent::update_value(self::_TABLE, 'gets', $game->gets(), self::_ID_FIELD, $game->get_game_id());
-		parent::update_value(self::_TABLE, 'guess_num', $game->guess_num(), self::_ID_FIELD, $game->get_game_id());
+		parent::update_value(self::_TABLE, 'gets', $game->get_gets(), self::_ID_FIELD, $game->get_game_id());
+		parent::update_value(self::_TABLE, 'guess_num', $game->get_guess_num(), self::_ID_FIELD, $game->get_game_id());
+		if($game->get_dealer_id())
+		{
+			parent::update_value(self::_TABLE, 'dealer_id', $game->get_dealer_id(), self::_ID_FIELD, $game->get_game_id());
+		}
+		if($game->get_player_id())
+		{
+			parent::update_value(self::_TABLE, 'player_id', $game->get_player_id(), self::_ID_FIELD, $game->get_game_id());
+		}
 	}
 
 	public function get_game_vars($game)

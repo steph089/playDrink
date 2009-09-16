@@ -40,7 +40,7 @@ class db {
 	protected function inserted_id() {
 		$this->_query = "SELECT LAST_INSERT_ID()";
 		$result = $this->run();
-		$row = mysql_fetch_array($result)or die("Data Retrival Failed");
+		$row = mysql_fetch_array($result)or die("Get Last Inserted ID Failed");
 		return $row[0];
 	}
 
@@ -68,33 +68,39 @@ class db {
 		}
 	}
 
-	protected function select_value($table, $field, $id_field, $id) {
-		$this->_query = "SELECT $field FROM $table WHERE $id_field = '$id'";
+	protected function select_value($table, $field, $id_field, $id, $extra_cond='1') {
+		$this->_query = "SELECT $field FROM $table WHERE $id_field = '$id' AND $extra_cond";
 		$result = $this->run();
-		$row = mysql_fetch_array($result)or die("Data Retrival Failed");
-		return $row[0];
+		if(mysql_num_rows($result) < 1)
+		{
+			return false;
+		}
+		else
+		{
+			$row = mysql_fetch_array($result);
+			return $row[0];
+		}
 	}
 
 	protected function select_row($table, $id_field, $id) {
 		$this->_query = "SELECT * FROM $table WHERE $id_field = '$id'";
 		$result = $this->run();
-		$row = mysql_fetch_array($result, MYSQL_ASSOC)or die("Data Retrival Failed");
+		$row = mysql_fetch_array($result, MYSQL_ASSOC)or die("***$table, $id_field=$id: Select Row Fetch Failed<BR>" . $this->_query . "<BR>");
 		return $row;
 	}
 
-	protected function update_value($table, $field, $value, $id_field, $id, $extra_cond = '')
+	protected function update_value($table, $field, $value, $id_field, $id, $extra_cond = '1')
 	{
 		if($value != 'NULL')
 			$value = "'" . $value . "'";
-		if($extra_cond != '')
-			$extra_cond = "AND " . $extra_cond;
-		$this->_query = "UPDATE $table SET $field  = $value WHERE $id_field = '$id' " . $extra_cond;
+
+		$this->_query = "UPDATE $table SET $field  = $value WHERE $id_field = '$id' AND $extra_cond";
 		$this->run();
 	}
 
-	protected function select_list($table, $field, $id_field, $id, $extraCond)
+	protected function select_list($table, $field, $id_field, $id, $extra_cond=' 1')
 	{
-		$this->_query = "SELECT $field FROM $table WHERE $id_field = '$id' $extraCond";
+		$this->_query = "SELECT $field FROM $table WHERE $id_field = '$id' AND $extra_cond";
 		$results = $this->run();
 		if(mysql_num_rows($results) == 0)
 		{

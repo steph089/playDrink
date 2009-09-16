@@ -1,5 +1,8 @@
-
 <?php
+function __autoload($class_name) {
+	require_once "resources/classes/$class_name.php";
+}
+
 //*********** DATA LOAD ********************
 if(! isset($_GET['id']))
 {
@@ -17,12 +20,7 @@ else
 
 <head>
 <title>Fuck the Dealer - playDrink.com</title>
-<?php
-require_once('resources/modules/page.php');
-function __autoload($class_name) {
-	require_once "resources/classes/$class_name.php";
-}
-?>
+
 
 <link  rel="stylesheet" type="text/css" href="resources/global.css">
 <script type='text/javascript' src='resources/jquery.js'></script>
@@ -55,7 +53,7 @@ include('resources/includes/sidemenu.html');
 	}
 	echo "</div>";
 
-	for($i=1;$i<=13;$i++) 
+	for($i=1;$i<=13;$i++)
 	{
 		echo "<div id='card_container$i' class='card_container'></div>";
 	}
@@ -65,14 +63,14 @@ include('resources/includes/sidemenu.html');
 
 <div class='player_list'><h2>players</h2>
 <ul id='players'>
-<?php	
-	if($game->players->num_players() == 0)
+<?php
+	if($game->get_num_players() == 0)
 	{
 		echo "<div id='no_players'>none</div>";
 	}
 	else
 	{
-		echo $game->players->get_player_list_elements();
+		echo $game->get_player_list();
 	}
 ?>
 </ul>
@@ -83,7 +81,7 @@ include('resources/includes/sidemenu.html');
 <span class='big_words'>guess:</span><input type='text' id='guess_box'>
 <span id='gets'>
 <?php
-echo $game->gets();
+echo $game->get_gets();
 ?>
 </span>gets
 <BR><BR>

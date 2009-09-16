@@ -5,7 +5,7 @@ class Player
 {
 	private $_name;
 	private $_player_id;
-	private $_modifer;
+	private $_order_int;
 
 // ******************* CONSTRUCT ***************************************
 	public function __construct()
@@ -24,8 +24,7 @@ class Player
 
 	private function _add_new_player($game_id, $name, $order_int)
 	{		
-		$this->_name = $name;
-		$this->_modifier = '';
+		$this->_name = $name;		
 		$db = new db_player();
 		$this->_player_id = $db->insert_player($game_id, $name, $order_int);		
 	}
@@ -38,8 +37,8 @@ class Player
 		$db = new db_player();
 		$player_array = $db->load_player($player_id);
 
-		$this->_name = $player_array['name'];
-		$this->_modifier = $player_array['modifier'];
+		$this->_name = $player_array['name'];		
+		$this->_order_int = $player_array['order_int'];		
 	}
 
 // ******************** OVERLOAD ***************************************
@@ -50,51 +49,28 @@ class Player
 	}
 
 // ******************* MANIP ********************************************
-
-	public function make_dealer($game_id)
-	{
-		$this->_modifier = 'd';
-		$db = new db_player();		
-		$db->add_modifier($this, $game_id);
-	}
 	
-	public function make_cur_player($game_id)
-	{
-		$this->_modifier = 'p';
-		$db = new db_player();		
-		$db->add_modifier($this, $game_id);
-	}
 
 // ****************** ACCESS ********************************************
 
-	public function name()
+	public function get_name()
 	{
 		return $this->_name;
 	}
 	
-	public function id()
+	public function get_id()
 	{
 		return $this->_player_id;
-	}
-	
-	public function modifier()
-	{
-		return $this->_modifier;
-	}
+	}	
 
-	public function get_li()
+	public function get_order_int()
 	{
-		$li = "<li class='player";
-		switch($this->_modifier)
-		{
-			case 'd':
-				$li .= " dealer";
-				break;
-			case 'p':
-				$li .= " cur_player";
-				break;
-		}
-		$li .= "' player_id='" . $this->_player_id . "'>" . $this->_name . "</li>";
+		return $this->_order_int;
+	}	
+
+	public function get_li($mod)
+	{
+		$li = "<li class='player' player_id='" . $this->_player_id . "'>" . $this->_name . "</li>";
 		return $li;
 	}
 }
