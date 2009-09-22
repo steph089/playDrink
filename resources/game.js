@@ -95,6 +95,12 @@ $(function() {
 						$("li[player_id=" + data.new_player_id + "]").addClass('cur_player');
 					}
 					
+					if(data.new_dealer_id != undefined)
+					{
+						$(".dealer").removeClass('dealer');
+						$("li[player_id=" + data.new_dealer_id + "]").addClass('dealer');
+					}
+					
 					$("#gets").html(data.gets);
 					$("#geuss_num").val(data.guess);
 					change_status(data.status);

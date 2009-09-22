@@ -206,9 +206,10 @@ class Game
 			$next_players_id = $db->get_first_not_dealer_players_id($this);
 		}
 
-		$this->_player = new Player($next_players_id);
-		return $next_players_id;
+		return new Player($next_players_id);
 	}
+
+
 
 // ************************* PUBLIC *************************************
 
@@ -256,15 +257,15 @@ class Game
 			if($this->_gets == 3)
 			{
 				$this->reset_gets();
-				$json_array['new_dealer_id'] = "New Dealer";
-				$json_array['new_player_id'] = $this->increment_player();
-				//increment dealer
-				//make new player old dealer
+				$json_array['new_player_id'] = $this->_dealer->get_id();
+				$this->_player = $this->_dealer;
+				$this->_dealer = $this->increment_player();
+				$json_array['new_dealer_id'] = $this->_dealer->get_id();
 			}
 			else
 			{
-				$json_array['new_player_id'] = $this->increment_player();
-				// increment player
+				$this->_player = $this->increment_player();
+				$json_array['new_player_id'] = $this->_player->get_id();
 			}
 		}
 
