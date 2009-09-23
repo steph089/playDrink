@@ -114,5 +114,7 @@ $(function() {
 
 
 function change_status(statusText) {
-	$("#status").hide().html(statusText).fadeIn('slow');
+	$(".new_status").removeClass('new_status');
+	$("#status").prepend("<div class='new_status'>" + statusText + "</div>");
+	$(".new_status").hide().fadeIn('slow');
 }

@@ -313,3 +313,16 @@ input.button:hover {
 	font-weight:bold;
 	font-size:2em;
 }
+
+#status 
+{
+	border:1px solid #a5ff38;
+	height:7em;
+	width:25em;
+	overflow:auto;
+}
+
+.new_status
+{
+	font-weight:bold;
+}
