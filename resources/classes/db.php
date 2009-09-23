@@ -1,7 +1,7 @@
 <?php
 
 class db {
-	const enviro = 'dev';
+	const enviro = 'prod';
 
 	private $_con;
 	private $_query;
