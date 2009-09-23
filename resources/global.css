@@ -171,7 +171,7 @@ div.main_page_login {
 	padding:0px 0px 10px 0px;
 }
 
-#players {
+.players {
 	margin:15px 0px;
 }
 
@@ -198,7 +198,17 @@ div.main_page_login {
 	background:#87BBFF;
 }
 
+.dealer:hover
+{
+	background:#BFDAFF;
+}
+
 .cur_player {
+	background: #F0FF23;
+}
+
+.cur_player:hover
+{
 	background: #F9FFAD;
 }
 
