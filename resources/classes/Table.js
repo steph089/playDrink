@@ -10,6 +10,7 @@ function Table(game_id) {
 		{ 'game_id':game_id },
 		function(data) {
 			table_array = data.split(',');
+			
 			for(var i = 0; i < table_array.length; i++)
 			{
 				add_card(table_array[i]);

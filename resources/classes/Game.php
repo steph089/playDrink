@@ -215,62 +215,72 @@ class Game
 
 	public function guess($guess)
 	{
-		$next_card_int = $this->deck->get_card($this->_next_card, 'rank_int');
-
-		$json_array = array(
-			'status'		=> 'failed geuss parse. fuck.',
-			'end_turn'		=> false
-		);
-
-
-		if($guess == $next_card_int) //perfect guess
+		if($this->_next_card > 51)
 		{
-			$json_array['status'] = "yes! dealer drinks " . self::_PERFECT_GUESS_DRINKS / $this->_guess_num . "!";
-			$this->reset_guess_num();
-			$this->reset_gets();
-			$json_array['end_turn'] = true;
+			$json_array['status'] = 'game over.';			
 		}
-		else
+		elseif($this->get_num_players() == 0)
 		{
-			if($this->_guess_num == 1)
+			$json_array['status'] = 'really, add some players (F2)';
+		}
+		else 
+		{
+			$next_card_int = $this->deck->get_card($this->_next_card, 'rank_int');		
+			
+			$json_array = array(
+				'status'		=> 'failed guess parse. fuck.',
+				'end_turn'		=> false
+			);
+		
+			if($guess == $next_card_int) //perfect guess
 			{
-				$json_array['status'] =  $guess > $next_card_int ? "lower" : "higher";
-				$this->increment_guess_num();
-			}
-			else
-			{
-				$json_array['status'] = "no, it was the " . $this->deck->get_card($this->_next_card, 'full_name') . ". drink " . abs($guess - $next_card_int);
+				$json_array['status'] = "yes! dealer drinks " . self::_PERFECT_GUESS_DRINKS / $this->_guess_num . "!";
 				$this->reset_guess_num();
-				$this->increment_gets();
+				$this->reset_gets();
 				$json_array['end_turn'] = true;
 			}
-		}
-
-		if($json_array['end_turn'])
-		{
-			$json_array['card_string'] = $this->deck->get_card($this->_next_card);
-			$this->_next_card++;
-
-			$db = new db_game();
-			$db->set_next_card($this);
-
-			if($this->_gets == 3)
-			{
-				$this->reset_gets();
-				$json_array['new_player_id'] = $this->_dealer->get_id();
-				$this->_player = $this->_dealer;
-				$this->_dealer = $this->increment_player();
-				$json_array['new_dealer_id'] = $this->_dealer->get_id();
-			}
 			else
 			{
-				$this->_player = $this->increment_player();
-				$json_array['new_player_id'] = $this->_player->get_id();
+				if($this->_guess_num == 1)
+				{
+					$json_array['status'] =  $guess > $next_card_int ? "lower" : "higher";
+					$this->increment_guess_num();
+				}
+				else
+				{
+					$json_array['status'] = "no, it was the " . $this->deck->get_card($this->_next_card, 'full_name') . ". drink " . abs($guess - $next_card_int);
+					$this->reset_guess_num();
+					$this->increment_gets();
+					$json_array['end_turn'] = true;
+				}
 			}
-		}
 
-		$json_array['guess'] = $this->_guess_num;
-		$json_array['gets'] = $this->_gets;
+			if($json_array['end_turn'])
+			{
+				$json_array['card_string'] = $this->deck->get_card($this->_next_card);
+				$this->_next_card++;
+
+				$db = new db_game();
+				$db->set_next_card($this);
+
+				if($this->_gets == 3)
+				{
+					$this->reset_gets();
+					$json_array['new_player_id'] = $this->_dealer->get_id();
+					$this->_player = $this->_dealer;
+					$this->_dealer = $this->increment_player();
+					$json_array['new_dealer_id'] = $this->_dealer->get_id();
+				}
+				else
+				{
+					$this->_player = $this->increment_player();
+					$json_array['new_player_id'] = $this->_player->get_id();
+				}
+			}
+
+			$json_array['guess'] = $this->_guess_num;
+			$json_array['gets'] = $this->_gets;
+		}
 
 		return json_encode($json_array);
 	}

@@ -71,7 +71,7 @@ class Deck
 			$end = $this->_cards.length() + $end - 1;
 		}
 		
-		for($i=$start;$i<$end;$i++) 
+		for($i=$start;$i<=$end;$i++) 
 		{
 			array_push($card_array, $this->_cards[$i]);
 		}
