@@ -183,7 +183,7 @@ div.main_page_login {
 	border-width:1px;
 	/*width:68%;*/
 	background:#A5FF38;
-	text-align:center;
+	text-align:center;	
 	padding: 3px 3px 3px 3px;
 	margin: 5px 0px 5px 5px;
 }
@@ -196,6 +196,7 @@ div.main_page_login {
 
 .dealer {
 	background:#87BBFF;
+	font-weight:bold;
 }
 
 .dealer:hover
@@ -205,11 +206,26 @@ div.main_page_login {
 
 .cur_player {
 	background: #F0FF23;
+	font-weight:bold;
 }
 
 .cur_player:hover
 {
 	background: #F9FFAD;
+}
+
+.player_drinks
+{
+	float:left;
+	font-size:.7em;
+	font-weight:normal;
+}
+
+.player_percentage
+{
+	float:right;
+	font-size:.6em;	
+	font-weight:normal;
 }
 
 #no_players {

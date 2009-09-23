@@ -23,7 +23,7 @@ function Player_List(game_id) {
 
 
 function build_player_setup_element(new_name) {
-	return "<li class='player'>" + new_name + "</li>";
+	return "<li class='player'>" + new_name + " from JS</li>";
 }
 
 function show_hide_new_player_name() {

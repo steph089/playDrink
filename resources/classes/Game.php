@@ -133,7 +133,10 @@ class Game
 		{
 			$li .= " cur_player";
 		}
-		$li .= "' player_id='" . $id . "'>" . $player->get_name() . "</li>";
+		$li .= "' player_id='" . $id . "'>" . $player->get_name();
+		$li .= "<div class='player_drinks'>" . $player->get_drinks() . "</div>";
+		$li .= "<div class='player_percentage'>" . $player->get_guess_percentage() . "</div>";
+		$li .= "</li>";
 		return $li;
 	}
 
@@ -217,26 +220,38 @@ class Game
 	{
 		if($this->_next_card > 51)
 		{
-			$json_array['status'] = 'game over.';			
+			$json_array['status'] = 'game over.';
 		}
 		elseif($this->get_num_players() == 0)
 		{
 			$json_array['status'] = 'really, add some players (F2)';
 		}
-		else 
+		else
 		{
-			$next_card_int = $this->deck->get_card($this->_next_card, 'rank_int');		
-			
+			$next_card_int = $this->deck->get_card($this->_next_card, 'rank_int');
+
 			$json_array = array(
 				'status'		=> 'failed guess parse. fuck.',
 				'end_turn'		=> false
 			);
-		
+
 			if($guess == $next_card_int) //perfect guess
 			{
-				$json_array['status'] = "yes! dealer drinks " . self::_PERFECT_GUESS_DRINKS / $this->_guess_num . "!";
+				$drinks = self::_PERFECT_GUESS_DRINKS / $this->_guess_num;
+
+				$this->_dealer->add_drinks($drinks);
+				if($this->_guess_num == 1)
+				{
+					$this->_player->inc_correct_guesses();
+				}
+				else
+				{
+					$this->_player->inc_correct_guesses_2();
+				}
+
 				$this->reset_guess_num();
 				$this->reset_gets();
+				$json_array['status'] = "yes! " . $this->_dealer->get_name() . " drinks " . $drinks . "!";
 				$json_array['end_turn'] = true;
 			}
 			else
@@ -248,9 +263,15 @@ class Game
 				}
 				else
 				{
-					$json_array['status'] = "no, it was the " . $this->deck->get_card($this->_next_card, 'full_name') . ". drink " . abs($guess - $next_card_int);
+					$drinks = abs($guess - $next_card_int);
+
+					$this->_player->add_drinks($drinks);
+
 					$this->reset_guess_num();
 					$this->increment_gets();
+
+					$json_array['status'] = "no, it was the " . $this->deck->get_card($this->_next_card, 'full_name') . ". ";
+					$json_array['status'] .= $this->_player->get_name() . " drinks " . $drinks;
 					$json_array['end_turn'] = true;
 				}
 			}
@@ -259,6 +280,8 @@ class Game
 			{
 				$json_array['card_string'] = $this->deck->get_card($this->_next_card);
 				$this->_next_card++;
+
+				$this->_player->inc_turns();
 
 				$db = new db_game();
 				$db->set_next_card($this);

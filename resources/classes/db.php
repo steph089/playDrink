@@ -98,6 +98,20 @@ class db {
 		$this->run();
 	}
 
+	protected function update_multi_values($table, $field_vals, $id_field, $id)
+	{
+		$set_array = array();
+
+		foreach($field_vals as $key => $value)
+		{
+			$set_array[] = $key . "= " . $value;
+		}
+
+		$set_list = implode(',',$set_array);
+		$this->_query = "UPDATE $table SET $set_list WHERE $id_field = '$id'";
+		$this->run();
+	}
+
 	protected function select_list($table, $field, $id_field, $id, $extra_cond=' 1')
 	{
 		$this->_query = "SELECT $field FROM $table WHERE $id_field = '$id' AND $extra_cond";

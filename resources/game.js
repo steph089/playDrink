@@ -101,6 +101,16 @@ $(function() {
 						$("li[player_id=" + data.new_dealer_id + "]").addClass('dealer');
 					}
 					
+					if(data.dealer_drinks != $(".dealer > .player_drinks").html())
+					{
+						$(".dealer > .player_drinks").html(data.dealer_drinks).css('font-weight','bold');
+					}
+					
+					if(data.player_drinks != $(".curplayer > .player_drinks").html())
+					{
+						$(".cur_player > .player_drinks").html(data.player_drinks).css('font-weight','bold');
+					}
+					
 					$("#gets").html(data.gets);
 					$("#geuss_num").val(data.guess);
 					change_status(data.status);
