@@ -60,7 +60,7 @@ $(function() {
 					function(data)
 					{
 						$("#no_players").remove();
-						$("#players").append(data.li);						
+						$("#players").append(data.li);
 						$("#new_player_name").val('');
 						change_status(data.status);
 					},
@@ -85,33 +85,34 @@ $(function() {
 				},
 				function(data) {
 					if($("#guess_num").val() == 2 || data.end_turn)
-					{
+					{						
 						table.add_card(data.card_string);
 					}
-					
-					if(data.new_player_id != undefined)
+
+					if(data.end_turn)
 					{
-						$(".cur_player").removeClass('cur_player');
-						$("li[player_id=" + data.new_player_id + "]").addClass('cur_player');
+						if(data.drinkers_id != undefined)
+						{
+							//alert("adding " + data.drinkers_drinks + " drinks to " + data.drinkers_id);
+							var cur_drinks = $("li[player_id=" + data.drinkers_id + "]").children(".player_drinks").html();							
+							$("li[player_id=" + data.drinkers_id + "] > .player_drinks").html(parseInt(cur_drinks) + data.drinkers_drinks);
+						}
+						
+						if(data.new_dealer_id != undefined)
+						{
+							$(".dealer").removeClass('dealer');
+							$("li[player_id=" + data.new_dealer_id + "]").addClass('dealer');
+						}
+
+						if(data.new_player_id != undefined)
+						{
+							$(".cur_player").removeClass('cur_player');
+							$("li[player_id=" + data.new_player_id + "]").addClass('cur_player');
+						}
+
+						$("#gets").html(data.gets);
 					}
-					
-					if(data.new_dealer_id != undefined)
-					{
-						$(".dealer").removeClass('dealer');
-						$("li[player_id=" + data.new_dealer_id + "]").addClass('dealer');
-					}
-					
-					if(data.dealer_drinks != $(".dealer > .player_drinks").html())
-					{
-						$(".dealer > .player_drinks").html(data.dealer_drinks).css('font-weight','bold');
-					}
-					
-					if(data.player_drinks != $(".curplayer > .player_drinks").html())
-					{
-						$(".cur_player > .player_drinks").html(data.player_drinks).css('font-weight','bold');
-					}
-					
-					$("#gets").html(data.gets);
+
 					$("#geuss_num").val(data.guess);
 					change_status(data.status);
 				},

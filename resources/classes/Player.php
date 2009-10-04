@@ -32,7 +32,7 @@ class Player
 		$this->_name = $name;
 		$db = new db_player();
 		$this->_player_id = $db->insert_player($game_id, $name, $order_int);
-		$this->_drinks = $this->_player_id;
+		$this->_drinks = 0;
 		$this->_turns = 0;
 		$this->_correct_guesses = 0;
 		$this->_correct_guesses_2 = 0;

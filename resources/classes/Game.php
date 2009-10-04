@@ -66,7 +66,7 @@ class Game
 			$players = new Player_list($this->_game_id);
 			$this->_player = $players->get_player(0);
 		}
-		
+
 		if($game_vars['dealer_id'] != '')
 			$this->_dealer = new Player($game_vars['dealer_id']);
 		elseif($this->get_num_players() > 0)
@@ -263,6 +263,8 @@ class Game
 				$this->reset_guess_num();
 				$this->reset_gets();
 				$json_array['status'] = "yes! " . $this->_dealer->get_name() . " drinks " . $drinks . "!";
+				$json_array['drinkers_id'] = $this->_dealer->get_id();
+
 				$json_array['end_turn'] = true;
 			}
 			else
@@ -270,6 +272,7 @@ class Game
 				if($this->_guess_num == 1)
 				{
 					$json_array['status'] =  $guess > $next_card_int ? "lower" : "higher";
+					$json_array['status'] .=  " than $guess";
 					$this->increment_guess_num();
 				}
 				else
@@ -277,6 +280,7 @@ class Game
 					$drinks = abs($guess - $next_card_int);
 
 					$this->_player->add_drinks($drinks);
+					$json_array['drinkers_id'] = $this->_player->get_id();
 
 					$this->reset_guess_num();
 					$this->increment_gets();
@@ -291,6 +295,8 @@ class Game
 			{
 				$json_array['card_string'] = $this->deck->get_card($this->_next_card);
 				$this->_next_card++;
+
+				$json_array['drinkers_drinks'] = $drinks;
 
 				$this->_player->inc_turns();
 
