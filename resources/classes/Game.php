@@ -61,8 +61,19 @@ class Game
 		//load player/dealer
 		if($game_vars['player_id'] != '')
 			$this->_player = new Player($game_vars['player_id']);
+		elseif($this->get_num_players() > 1)
+		{
+			$players = new Player_list($this->_game_id);
+			$this->_player = $players->get_player(0);
+		}
+		
 		if($game_vars['dealer_id'] != '')
 			$this->_dealer = new Player($game_vars['dealer_id']);
+		elseif($this->get_num_players() > 0)
+		{
+			$players = new Player_list($this->_game_id);
+			$this->_dealer = $players->get_player(0);
+		}
 	}
 
 	public function __destruct()
@@ -125,11 +136,11 @@ class Game
 	{
 		$li = "<li class='player";
 		$id = $player->get_id();
-		if($id == $this->_dealer->get_id())
+		if(isset($this->_dealer) && $id == $this->_dealer->get_id())
 		{
 			$li .= " dealer";
 		}
-		elseif ($id == $this->_player->get_id())
+		elseif (isset($this->_player) && $id == $this->_player->get_id())
 		{
 			$li .= " cur_player";
 		}
