@@ -11,7 +11,6 @@ class db_game extends db
 		return parent::insert(self::_TABLE, $values);
 	}
 
-
 	public function get_deck_array($game_id)
 	{
 		$init_string = parent::select_value(self::_TABLE, 'deck', self::_ID_FIELD, $game_id);

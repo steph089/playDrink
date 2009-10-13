@@ -32,9 +32,7 @@ $(function() {
 	//$("#stats").html(document.documentElement.clientHeight + " by " + document.documentElement.clientWidth);
 	//$("body").css('font-size','150%');
 
-	table = new Table($("#game_id").val());
-
-	playerCheck();
+	table = new Table($("#game_id").val());	
 
 	$(document).bind('keydown', 'f2',
 		function (evt){
@@ -130,11 +128,6 @@ function change_status(statusText) {
 	$(".new_status").hide().fadeIn('slow');
 }
 
-function playerCheck() {	
-	if($("#players").children('.cur_player').size() == 0) {
-		change_status("add some players (F2)");
-	}
-}
 function show_hide_new_player_name() {
 	if($("#new_player_name").css('display') == 'none') {
 		$("#new_player_name").show().focus();

@@ -90,7 +90,9 @@ echo $game->get_gets();
 ?>
 </span>gets
 <BR><BR>
-<div id='status'></div>
+<div id='status'><?php
+echo "<div class='new_status'>" . '$game->some_kind_of_turn_summary' . "</div>";
+?></div>
 
 </div> <!-- end mainContent -->
 </body>

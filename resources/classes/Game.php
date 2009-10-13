@@ -9,6 +9,7 @@ class Game
 	private $_guess_num;
 	private $_player;
 	private $_dealer;
+	private $_turn_id;
 	const _PERFECT_GUESS_DRINKS = 10;
 
 	public $deck;
@@ -36,6 +37,7 @@ class Game
 		$this->_next_card 	= 0;
 		$this->_gets 		= 0;
 		$this->_guess_num 	= 1;
+		$this->_turn_id		= 0;
 
 		$this->deck = new Deck;
 		$db = new db_game;
@@ -57,6 +59,7 @@ class Game
 		$this->_gets = $game_vars['gets'];
 		$this->_guess_num = $game_vars['guess_num'];
 		$this->_next_card = $game_vars['next_card'];
+		$this->_turn_id = $game_vars['turn_id'];
 
 		//load player/dealer
 		if($game_vars['player_id'] != '')
@@ -239,6 +242,10 @@ class Game
 		}
 		else
 		{
+			if($this->_turn_id == 0) //new turn
+			{
+				$this->_turn_id = new Turn(5, 6, 1);
+			}
 			$next_card_int = $this->deck->get_card($this->_next_card, 'rank_int');
 
 			$json_array = array(
@@ -246,7 +253,7 @@ class Game
 				'end_turn'		=> false
 			);
 
-			if($guess == $next_card_int) //perfect guess
+			if($guess == $next_card_int)
 			{
 				$drinks = self::_PERFECT_GUESS_DRINKS / $this->_guess_num;
 
@@ -290,6 +297,8 @@ class Game
 					$json_array['end_turn'] = true;
 				}
 			}
+			
+			
 
 			if($json_array['end_turn'])
 			{
