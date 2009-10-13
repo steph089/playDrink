@@ -61,15 +61,18 @@ class Deck
 	
 	public function sub_deck($start, $end=0) {
 		$card_array = array();
+		/*
+		this code gets a sub deck from the end of the deck...don't need it for FTD
 		if($start < 0) 
 		{
-			$start = $this->_cards.length() + $start - 1;
+			$start = count($this->_cards) + $start - 1;
 		}
 		
 		if($end < 1) 
 		{
-			$end = $this->_cards.length() + $end - 1;
+			$end = count($this->_cards) + $end - 1;
 		}
+		*/
 		
 		for($i=$start;$i<=$end;$i++) 
 		{
