@@ -26,7 +26,7 @@ $(function() {
 	});
 	$("#new_player_name").hide();
 
-	$("#show_hide_new_player_name").click(show_hide_new_player_name);
+	
 
 	//gets size of window to make font bigger
 	//$("#stats").html(document.documentElement.clientHeight + " by " + document.documentElement.clientWidth);
@@ -128,4 +128,19 @@ function change_status(statusText) {
 	$(".new_status").removeClass('new_status');
 	$("#status").prepend("<div class='new_status'>" + statusText + "</div>");
 	$(".new_status").hide().fadeIn('slow');
+}
+
+function playerCheck() {	
+	if($("#players").children('.cur_player').size() == 0) {
+		change_status("add some players (F2)");
+	}
+}
+function show_hide_new_player_name() {
+	if($("#new_player_name").css('display') == 'none') {
+		$("#new_player_name").show().focus();
+	}
+	else {
+		$("#new_player_name").hide().val('');
+		//$("#show_hide_new_player_name").focus();
+	}
 }
