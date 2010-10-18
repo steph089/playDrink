@@ -238,7 +238,7 @@ class Game
 		}
 		elseif($this->get_num_players() == 0)
 		{
-			$json_array['status'] = 'really, add some players (F2)';
+			$json_array['status'] = 'to play, add some players (F2)';
 		}
 		else
 		{
@@ -359,6 +359,13 @@ class Game
 
 		return $new_player;
 	}
+
+  public function status()
+  {
+    return $this->_dealer . " is dealing.<br />" .
+      $this->_player . " is guessing.<br />" .
+      $this->_dealer . " has " . $this->_gets . " gets.";
+  }
 
 
 }

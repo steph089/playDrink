@@ -38,7 +38,6 @@ echo "<input id='guess_num' type='hidden' value='1' />";
 
 include('resources/includes/logoHeader.html');
 include('resources/includes/sidemenu.html');
-//page_userBox();
 ?>
 <div class='main_content'>
 <?php
@@ -93,6 +92,7 @@ echo $game->get_gets();
 <div id='status'><?php
 echo "<div class='new_status'>" . '$game->some_kind_of_turn_summary' . "</div>";
 ?></div>
+<input type='submit' id='game_status' />
 
 </div> <!-- end mainContent -->
 </body>

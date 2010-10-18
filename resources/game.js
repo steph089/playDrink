@@ -119,6 +119,15 @@ $(function() {
 		}
 	});
 
+  $("#game_status").click(function ()
+  {
+    $.get('resources/ajax/game_status.php?game_id=' + $("#game_id").val(),
+      function (data)
+      {
+        change_status(data.status);
+      });
+  });
+
 });
 
 
