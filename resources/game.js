@@ -96,6 +96,11 @@ $(function() {
 							$("li[player_id=" + data.drinkers_id + "] > .player_drinks").html(parseInt(cur_drinks) + data.drinkers_drinks);
 						}
 						
+						if(data.percentage_player_id != undefined)
+						{
+							$("li[player_id=" + data.percentage_player_id + "]> .player_percentage").html(data.new_percentage);
+						}
+						
 						if(data.new_dealer_id != undefined)
 						{
 							$(".dealer").removeClass('dealer');

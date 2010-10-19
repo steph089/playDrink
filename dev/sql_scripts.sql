@@ -20,6 +20,7 @@ ADD `dealer_id` INT NULL DEFAULT NULL;
  
   CREATE TABLE `playdrink`.`turns` (
 `id` INT NOT NULL AUTO_INCREMENT ,
+`game_id` INT NOT NULL ,
 `player_id` INT NOT NULL ,
 `dealer_id` INT NOT NULL ,
 `first_guess_num` INT NULL ,

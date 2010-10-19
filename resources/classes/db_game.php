@@ -30,16 +30,22 @@ class db_game extends db
 
 	public function save_game_vars($game)
 	{
-		parent::update_value(self::_TABLE, 'gets', $game->get_gets(), self::_ID_FIELD, $game->get_game_id());
-		parent::update_value(self::_TABLE, 'guess_num', $game->get_guess_num(), self::_ID_FIELD, $game->get_game_id());
+		$table =		self::_TABLE;
+		$field_vals =	array(
+							"gets" =>		$game->get_gets(),
+							"guess_num" =>	$game->get_guess_num(),
+							"turn_id" =>	$game->get_turn_id()
+						);
 		if($game->get_dealer_id())
-		{
-			parent::update_value(self::_TABLE, 'dealer_id', $game->get_dealer_id(), self::_ID_FIELD, $game->get_game_id());
-		}
+			$field_vals['dealer_id'] = $game->get_dealer_id();
+
 		if($game->get_player_id())
-		{
-			parent::update_value(self::_TABLE, 'player_id', $game->get_player_id(), self::_ID_FIELD, $game->get_game_id());
-		}
+			$field_vals['player_id'] = $game->get_player_id();
+
+		$id_field = self::_ID_FIELD;
+		$id = $game->get_game_id();
+
+		parent::update_multi_values($table, $field_vals, $id_field, $id);
 	}
 
 	public function get_game_vars($game)

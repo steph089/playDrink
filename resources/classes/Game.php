@@ -9,6 +9,7 @@ class Game
 	private $_guess_num;
 	private $_player;
 	private $_dealer;
+	private $_turn;
 	private $_turn_id;
 	const _PERFECT_GUESS_DRINKS = 10;
 
@@ -189,6 +190,11 @@ class Game
 			return false;
 		}
 	}
+	
+	public function get_turn_id()
+	{
+		return $this->_turn_id;
+	}
 
 //************************** OPS **************************************
 // ************************ PRIVATE ***********************************
@@ -242,16 +248,29 @@ class Game
 		}
 		else
 		{
-			if($this->_turn_id == 0) //new turn
-			{
-				$this->_turn_id = new Turn(5, 6, 1);
-			}
-			$next_card_int = $this->deck->get_card($this->_next_card, 'rank_int');
-
 			$json_array = array(
 				'status'		=> 'failed guess parse. fuck.',
 				'end_turn'		=> false
 			);
+
+			if($this->_turn_id == 0) //new turn
+			{
+				$this->_turn = new Turn($this->_game_id, $this->_player->get_id(), $this->_dealer->get_id(), $this->_gets);				
+				$this->_turn_id = $this->_turn->get_id();
+			}
+			else
+				$this->_turn = new Turn($this->_turn_id);
+
+			$json_array['turn_id'] = $this->_turn->get_id();
+
+			if($this->_guess_num == 1)
+				$this->_turn->set_first_guess_num($guess);
+			else
+				$this->_turn->set_second_guess_num($guess);
+
+			$next_card_int = $this->deck->get_card($this->_next_card, 'rank_int');
+
+
 
 			if($guess == $next_card_int)
 			{
@@ -271,6 +290,7 @@ class Game
 				$this->reset_gets();
 				$json_array['status'] = "yes! " . $this->_dealer->get_name() . " drinks " . $drinks . "!";
 				$json_array['drinkers_id'] = $this->_dealer->get_id();
+
 
 				$json_array['end_turn'] = true;
 			}
@@ -297,8 +317,8 @@ class Game
 					$json_array['end_turn'] = true;
 				}
 			}
-			
-			
+
+
 
 			if($json_array['end_turn'])
 			{
@@ -309,8 +329,13 @@ class Game
 
 				$this->_player->inc_turns();
 
+				$json_array['percentage_player_id'] = $this->_player->get_id();
+				$json_array['new_percentage'] = $this->_player->get_guess_percentage();
+
 				$db = new db_game();
 				$db->set_next_card($this);
+				
+				$this->_turn_id = 0;
 
 				if($this->_gets == 3)
 				{
