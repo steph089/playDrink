@@ -96,11 +96,6 @@ $(function() {
 							$("li[player_id=" + data.drinkers_id + "] > .player_drinks").html(parseInt(cur_drinks) + data.drinkers_drinks);
 						}
 						
-						if(data.percentage_player_id != undefined)
-						{
-							$("li[player_id=" + data.percentage_player_id + "]> .player_percentage").html(data.new_percentage);
-						}
-						
 						if(data.new_dealer_id != undefined)
 						{
 							$(".dealer").removeClass('dealer');
@@ -123,6 +118,15 @@ $(function() {
 			$(this).val('');
 		}
 	});
+
+  $("#game_status").click(function ()
+  {
+    $.get('resources/ajax/game_status.php?game_id=' + $("#game_id").val(),
+      function (data)
+      {
+        change_status(data.status);
+      });
+  });
 
 });
 

@@ -10,7 +10,7 @@ class db {
 		switch(self::enviro) {
 			case 'dev':
 				$username="root";
-				$password="mysqlpassword";
+				$password="meshminder";
 				$database="playdrink";
 				$host='localhost';
 				break;
